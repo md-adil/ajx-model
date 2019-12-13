@@ -1,0 +1,14 @@
+/node_modules
+/dist
+/.cache
+/index.html
+/package-lock.json
+/package.json
+/yarn.lock
+/tsconfig.json
+/src/components
+/src/model
+/src/render.tsx
+/src/main.ts
+
+
