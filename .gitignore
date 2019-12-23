@@ -3,7 +3,6 @@
 /.cache
 /index.html
 /package-lock.json
-/package.json
 /yarn.lock
 /tsconfig.json
 /src/components

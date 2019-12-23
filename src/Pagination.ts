@@ -20,7 +20,7 @@ class Pagination<T> {
         data: IPagination<T>,
         public queries?: any
     ) {
-        this.data = data.data.map(d => new this.model(d));
+        this.data = data.data;
         this.page = data.current_page;
         this.results = data.per_page;
         this.total = data.total;
