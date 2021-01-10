@@ -1,5 +1,5 @@
 import Axios from "axios";
-import Pagination from "./Pagination";
+import Pagination from "./pagination";
 
 class Model<D> {
     static collection: string;
@@ -46,6 +46,15 @@ class Model<D> {
         const M = this.constructor as any;
         return (this.attributes as any)[M.pk];
     }
+}
+
+export type ModelConstructor<T> = {
+    new (): Model<T>,
+    create(props: any): Model<T>
+    paginate<T>(queries?: any): Pagination<T>,
+    fetch(id: number): Model<T>
+    fetchAll<T>(queries?: any): Model<T>[],
+    fetchPagination(page: number, queries?: any): any;
 }
 
 export default Model;

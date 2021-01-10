@@ -1,3 +1,2 @@
-export { default as Model } from "./Model";
-export { default as Pagination } from "./Pagination";
-export { default as withPagination } from "./withPagination";
+export { default as Model } from "./model";
+export { default as Pagination } from "./pagination";

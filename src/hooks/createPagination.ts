@@ -1,5 +1,5 @@
-import { useEffect } from "react";
-import Model from "ajx-model/src/Model";
+import { useEffect, useState } from "react";
+import Model, {ModelConstructor} from "../model";
 
 interface IPagination<T> {
     page: number;
@@ -7,17 +7,33 @@ interface IPagination<T> {
     data: T[];
     hasNext: boolean;
     hasPrev: boolean;
+    nextPage(): void;
+    prevPage(): void;
+    setPage(page: number): void;
 }
 
-const createPagination = <T extends Model<U>, U>(model: new () => T, pagePage = 10) => {
-    return (record: Record<string, any>, page: number): IPagination<T> => {
+const createPagination = <T extends Model<U>, U>(model: ModelConstructor<T>, perPage = 10) => {
+    return (query: Record<string, any>, defaultPage: number): IPagination<T> => {
+        const [data, setData] = useState<T[]>([])
+        const [page, setPage] = useState(defaultPage)
         useEffect(() => {
-            (model as any).fetchPagination(record, page)
-        });
+            model.fetchPagination(page, query).then((data) => {
+                setData(data.data);
+            })
+        }, [query, page]);
         return {
             hasNext: true,
             hasPrev: true,
-            page: 1, total: 1, data: []
+            nextPage() {
+                setPage(page + 1);
+            },
+            prevPage() {
+                setPage(page - 1);
+            },
+            setPage,
+            page,
+            total: 1,
+            data
         };
     }
 }
